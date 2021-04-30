@@ -7,12 +7,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.viewModelScope
 import com.dineshworkspace.panvalidator.R
 import com.dineshworkspace.panvalidator.helpers.InputFilterMinMax
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_pan.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -53,9 +52,9 @@ class PanActivity : AppCompatActivity() {
         })
 
         btn_next.setOnClickListener {
-            Toast.makeText(this, getString(R.string.submit_msg), Toast.LENGTH_LONG)
+            Toast.makeText(this@PanActivity, getString(R.string.submit_msg), Toast.LENGTH_LONG)
                 .show()
-            GlobalScope.launch(Dispatchers.Main) {
+            panViewModel.viewModelScope.launch {
                 delay(1000)
                 finish()
             }
