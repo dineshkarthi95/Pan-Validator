@@ -91,9 +91,9 @@ class PanActivity : AppCompatActivity() {
     private fun updateEditTextUi(editText: EditText, color: Int) {
         val grad = editText.background as GradientDrawable
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            grad.setStroke(2, resources.getColor(color, this.theme))
+            grad.setStroke(4, resources.getColor(color, this.theme))
         } else {
-            grad.setStroke(2, resources.getColor(color))
+            grad.setStroke(4, resources.getColor(color))
         }
     }
 
