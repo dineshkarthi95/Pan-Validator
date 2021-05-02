@@ -13,10 +13,28 @@ class PanViewModel @Inject constructor(private val panCardValidator: PanCardVali
     BaseViewModel() {
 
     val isValidPan: MutableLiveData<Boolean> = MutableLiveData()
+    val isValidYear: MutableLiveData<Boolean> = MutableLiveData()
+
+    init {
+        isValidPan.postValue(false)
+        isValidYear.postValue(false)
+    }
 
     fun validatePanCard(panData: String) {
         viewModelScope.launch {
             isValidPan.postValue(panCardValidator.validatePanCard(panData))
+        }
+    }
+
+    fun validateBirthYear(year: String) {
+        viewModelScope.launch {
+            if (year.isNotEmpty() &&
+                year.toInt() in 1901..2998
+            ) {
+                isValidYear.postValue(true)
+            } else {
+                isValidYear.postValue(false)
+            }
         }
     }
 

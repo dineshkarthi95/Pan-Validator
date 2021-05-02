@@ -37,11 +37,16 @@
         <item name="android:inputType">number</item>
         <item name="android:background">@drawable/bg_rounded_edit_text</item>
         <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="PanFooterTextView" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/purple_700</item>
         <item name="android:textSize">@dimen/ps_footer</item>
         <item name="android:layout_marginBottom">15dp</item>
+    </style>
+
+    <style name="InputEditText" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

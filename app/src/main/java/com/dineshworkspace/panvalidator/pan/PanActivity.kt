@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
 class PanActivity : AppCompatActivity() {
 
     private val panViewModel: PanViewModel by viewModels()
-    private var isPanValidated: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +28,6 @@ class PanActivity : AppCompatActivity() {
 
         et_birth_date.filters = arrayOf(InputFilterMinMax(1, 31))
         et_birth_month.filters = arrayOf(InputFilterMinMax(1, 12))
-
-        et_pan.addTextChangedListener {
-            if (it?.toString()!!.isNotEmpty()) {
-                panViewModel.validatePanCard(it.toString())
-            }
-        }
-
-        et_birth_year.addTextChangedListener {
-            validateInputs()
-        }
 
         et_birth_month.addTextChangedListener {
             validateInputs()
@@ -48,8 +37,24 @@ class PanActivity : AppCompatActivity() {
             validateInputs()
         }
 
+        et_pan.addTextChangedListener {
+            if (it?.toString()!!.isNotEmpty()) {
+                panViewModel.validatePanCard(it.toString())
+            }
+        }
+
+        et_birth_year.addTextChangedListener {
+            if (it?.toString()!!.isNotEmpty()) {
+                panViewModel.validateBirthYear(it.toString())
+            }
+        }
+
         panViewModel.isValidPan.observe(this, {
             updatePanUi(it)
+        })
+
+        panViewModel.isValidYear.observe(this, {
+            updateYearUi(it)
         })
 
         btn_next.setOnClickListener {
@@ -68,17 +73,20 @@ class PanActivity : AppCompatActivity() {
 
     private fun updatePanUi(it: Boolean?) {
         when (it) {
-            true -> {
-                updateEditTextUi(et_pan, R.color.purple_700)
-                isPanValidated = true
-            }
-            false -> {
-                updateEditTextUi(et_pan, R.color.grey)
-                isPanValidated = false
-            }
+            true -> updateEditTextUi(et_pan, R.color.purple_700)
+            false -> updateEditTextUi(et_pan, R.color.grey)
         }
         validateInputs()
     }
+
+    private fun updateYearUi(it: Boolean?) {
+        when (it) {
+            true -> updateEditTextUi(et_birth_year, R.color.blue)
+            false -> updateEditTextUi(et_birth_year, R.color.grey)
+        }
+        validateInputs()
+    }
+
 
     private fun updateEditTextUi(editText: EditText, color: Int) {
         val grad = editText.background as GradientDrawable
@@ -90,19 +98,8 @@ class PanActivity : AppCompatActivity() {
     }
 
     private fun validateInputs() {
-        btn_next.isEnabled = isPanValidated && validateBirthYear() &&
+        btn_next.isEnabled = panViewModel.isValidPan.value!! && panViewModel.isValidYear.value!! &&
                 (et_birth_date.length() == 1 || et_birth_date.length() == 2) &&
                 (et_birth_month.length() == 1 || et_birth_month.length() == 2)
-    }
-
-    private fun validateBirthYear(): Boolean {
-        if (et_birth_year.text.isNotEmpty() && et_birth_year.text?.toString()
-                ?.toInt()!! in 1901..2998
-        ) {
-            updateEditTextUi(et_birth_year, R.color.blue)
-            return true
-        }
-        updateEditTextUi(et_birth_year, R.color.grey)
-        return false
     }
 }

@@ -55,6 +55,7 @@
 
     <EditText
         android:id="@+id/et_pan"
+        style="@style/InputEditText"
         android:layout_width="match_parent"
         android:layout_height="@dimen/ps_et_height"
         android:layout_marginBottom="10dp"
