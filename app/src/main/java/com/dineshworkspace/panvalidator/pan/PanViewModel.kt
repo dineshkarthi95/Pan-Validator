@@ -14,7 +14,6 @@ class PanViewModel @Inject constructor(private val panCardValidator: PanCardVali
 
     val isValidPan: MutableLiveData<Boolean> = MutableLiveData()
 
-
     fun validatePanCard(panData: String) {
         viewModelScope.launch {
             isValidPan.postValue(panCardValidator.validatePanCard(panData))
