@@ -34,4 +34,4 @@ dineshkarthie@gmail.com
 
 ## Version History
 
-* 1 Initial Release
+* 1.0 Initial Release
