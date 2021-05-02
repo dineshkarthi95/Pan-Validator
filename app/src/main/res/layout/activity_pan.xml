@@ -59,7 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/ps_et_height"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_rounded_edit_text"
         android:imeOptions="actionNext"
         android:inputType="text"
         android:maxLength="10"
@@ -99,7 +98,6 @@
         app:layout_constraintEnd_toStartOf="@id/et_birth_month"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_hint_birth_date"
-        app:layout_constraintVertical_chainStyle="spread"
         tools:ignore="TextFields" />
 
     <EditText
@@ -113,8 +111,7 @@
         android:nextFocusForward="@id/et_birth_year"
         app:layout_constraintEnd_toStartOf="@id/guideline_vertical_middle"
         app:layout_constraintStart_toEndOf="@id/et_birth_date"
-        app:layout_constraintTop_toTopOf="@id/et_birth_date"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="@id/et_birth_date" />
 
     <EditText
         android:id="@+id/et_birth_year"
@@ -125,8 +122,7 @@
         android:maxLength="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline_vertical_middle"
-        app:layout_constraintTop_toTopOf="@id/et_birth_month"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="@id/et_birth_month" />
 
     <TextView
         android:id="@+id/tv_foot_note"

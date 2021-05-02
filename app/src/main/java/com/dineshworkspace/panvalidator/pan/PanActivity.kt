@@ -73,7 +73,7 @@ class PanActivity : AppCompatActivity() {
 
     private fun updatePanUi(it: Boolean?) {
         when (it) {
-            true -> updateEditTextUi(et_pan, R.color.purple_700)
+            true -> updateEditTextUi(et_pan, R.color.blue)
             false -> updateEditTextUi(et_pan, R.color.grey)
         }
         validateInputs()
@@ -81,7 +81,7 @@ class PanActivity : AppCompatActivity() {
 
     private fun updateYearUi(it: Boolean?) {
         when (it) {
-            true -> updateEditTextUi(et_birth_year, R.color.blue)
+            true -> updateEditTextUi(et_birth_year, R.color.purple_700)
             false -> updateEditTextUi(et_birth_year, R.color.grey)
         }
         validateInputs()
@@ -90,7 +90,7 @@ class PanActivity : AppCompatActivity() {
 
     private fun updateEditTextUi(editText: EditText, color: Int) {
         val grad = editText.background as GradientDrawable
-        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             grad.setStroke(2, resources.getColor(color, this.theme))
         } else {
             grad.setStroke(2, resources.getColor(color))
