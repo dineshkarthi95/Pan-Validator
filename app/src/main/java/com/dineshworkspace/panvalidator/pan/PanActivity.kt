@@ -1,6 +1,7 @@
 package com.dineshworkspace.panvalidator.pan
 
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
@@ -76,22 +77,32 @@ class PanActivity : AppCompatActivity() {
                 isPanValidated = false
             }
         }
+        validateInputs()
     }
 
     private fun updateEditTextUi(editText: EditText, color: Int) {
         val grad = editText.background as GradientDrawable
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             grad.setStroke(2, resources.getColor(color, this.theme))
         } else {
             grad.setStroke(2, resources.getColor(color))
         }
-        validateInputs()
     }
 
     private fun validateInputs() {
-        btn_next.isEnabled = isPanValidated &&
+        btn_next.isEnabled = isPanValidated && validateBirthYear() &&
                 (et_birth_date.length() == 1 || et_birth_date.length() == 2) &&
-                (et_birth_month.length() == 1 || et_birth_month.length() == 2) &&
-                et_birth_year.length() == 4
+                (et_birth_month.length() == 1 || et_birth_month.length() == 2)
+    }
+
+    private fun validateBirthYear(): Boolean {
+        if (et_birth_year.text.isNotEmpty() && et_birth_year.text?.toString()
+                ?.toInt()!! in 1901..2998
+        ) {
+            updateEditTextUi(et_birth_year, R.color.blue)
+            return true
+        }
+        updateEditTextUi(et_birth_year, R.color.grey)
+        return false
     }
 }
